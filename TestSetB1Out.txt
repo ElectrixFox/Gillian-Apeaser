@@ -1,6 +1,8 @@
-Functions: mai
+Functions: Boodicae, main
 #include <stdio.h>
 #include <iostream>
+
+int Boodicae();
 
 int main()
 {

@@ -93,6 +93,8 @@ char fnames[128][128];
 int fpositions[128];
 int fcount = FindAllFunctions(text, linecount, fpositions);
 
+int amtorem = 2;
+
 for (int i = 0; i < fcount; i++)
     {
     // Get the type and the name as strings
@@ -101,8 +103,11 @@ for (int i = 0; i < fcount; i++)
     // If it finds the open bracket in the string name
     if(strstr(name, "(") != nullptr)
         {
+        // If there is a semicolon then it takes of 3 characters if not it takes of 2
+        amtorem = (strstr(name, ";") != nullptr) ? 3 : 2;
+
         // Sets the 3rd character from the end as the null character (the end of the string)
-        name[strlen(name)-3] = '\0';
+        name[strlen(name)-amtorem] = '\0';
 
         // Copies the name into names at i
         strcpy(fnames[i], name);
