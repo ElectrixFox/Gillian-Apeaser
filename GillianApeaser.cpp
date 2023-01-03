@@ -36,8 +36,8 @@ int lc;
 
 char* identifiers[] = { "if", "while", "for", "switch" };
 char* endings[] = { " //endif", " //endwhile", " //endfor", " //endcase" };
-char atestsets[16][16] = { "TestSetA1.txt", "TestSetA2.txt", "TestSetA3.txt", "TestSetA4.txt", "TestSetA5.txt"};
-char btestsets[16][16] = { "TestSetB1.txt", "TestSetB2.txt", "TestSetB3.txt", "TestSetB4.txt", "TestSetB5.txt"};
+char atestsets[16][32] = { "TestDocs/TestSetA1.txt", "TestDocs/TestSetA2.txt", "TestDocs/TestSetA3.txt", "TestDocs/TestSetA4.txt", "TestDocs/TestSetA5.txt"};
+char btestsets[16][32] = { "TestDocs/TestSetB1.txt", "TestDocs/TestSetB2.txt", "TestDocs/TestSetB3.txt", "TestDocs/TestSetB4.txt", "TestDocs/TestSetB5.txt"};
 
 int main()
 {
@@ -69,8 +69,7 @@ OutBuffer(dat, lc, 1);
 
 cout << "\n\n============\n" << "== Middle ==" << "\n============\n\n";
 WriteFunctionNames(dat, lc);
-
-//MarkText(dat, identifiers, 0, lc);
+MarkText(dat, identifiers, 0, lc);
 
 cout << "\n\n===========\n" << "== After ==" << "\n===========\n\n";
 OutBuffer(dat, lc, 1);
@@ -88,6 +87,7 @@ int WriteFunctionNames(char** text, int linecount)
 char type[10];
 int totallen = 0;
 char* concfuncnames;
+
 char name[64];
 char fnames[128][128];
 int fpositions[128];
@@ -95,43 +95,65 @@ int fcount = FindAllFunctions(text, linecount, fpositions);
 
 for (int i = 0; i < fcount; i++)
     {
+    // Get the type and the name as strings
     sscanf(text[fpositions[i]], "%s %s", type, name);
 
+    // If it finds the open bracket in the string name
     if(strstr(name, "(") != nullptr)
         {
+        // Sets the 3rd character from the end as the null character (the end of the string)
         name[strlen(name)-3] = '\0';
+
+        // Copies the name into names at i
         strcpy(fnames[i], name);
         }
     
+    // Increases the total length
     totallen = totallen + strlen(name);
     }
 
-concfuncnames = (char*)malloc(sizeof(char) * 256);
-memset(concfuncnames, 0, 256);
+// Allocate the memory for the concatonated function names and the "Function: " and the function count + 3 for a little padding
+int totalsize = (totallen + 10 + (fcount * 3));
+concfuncnames = (char*)malloc(sizeof(char) * totalsize);
+
+// Clear it to avoid artifcats
+memset(concfuncnames, 0, totalsize);
 
 for (int i = 0; i < fcount; i++)
     {
+    // Append the function names to it
     strcat(concfuncnames, fnames[i]);
     
     if(i + 1 < fcount)
         {
+        
+        // Add a comma for readability
         strcat(concfuncnames, ", ");
         }
     }
 
 for (int i = 0; i < linecount; i++)
     {
+    // If it finds Functions: 
     if(strstr(text[i], "Functions: ") != nullptr)
         {
+        // Reallocate the line so it can hold more data
         text[i] = (char*)malloc((strlen(concfuncnames) + 12) * sizeof(char));
+
+        // Copy Functions: back into it
         strcpy(text[i], "Functions: ");
+
+        // Copy all of the data starting at concfuncnames first address to its end
         strncat(text[i], concfuncnames, strlen(concfuncnames));
+
+        // Return it's memory back to RAM
         free(concfuncnames);
         return 1;
         }
     }
 
 
+// Increase the line count by 1
 lc += 1;
 text[linecount] = (char*)malloc(sizeof(char) * 256);
 text[lc] = (char*)malloc(sizeof(char) * 256);
@@ -139,17 +161,14 @@ text[lc] = (char*)malloc(sizeof(char) * 256);
 for (int i = linecount; i >= 0; i--)
     {
     strcpy(text[i + 1], text[i]);
-    OutLine(text, i, 1);
-    
     }
 
-OutBuffer(text, lc, 1);
 
 text[0] = (char*)malloc((strlen(concfuncnames) + 12) * sizeof(char));
+
+// Copy functions back into the array and add the func names
 strcpy(text[0], "Functions: ");
 strncat(text[0], concfuncnames, strlen(concfuncnames));
-
-vcout(text[1]);
 
 return 0;
 }

@@ -1,0 +1,26 @@
+Functions: mai
+#include <stdio.h>
+#include <iostream>
+
+int main()
+{
+if(hello == 1)
+    {
+    if(goodbye == 0)
+        {
+
+        } //endif
+    
+    } //endif
+while(true)
+    {
+
+    } //endwhile
+
+for (count = 0; count < 11; count++)
+    {
+
+    } //endfor
+
+return 0;
+}
