@@ -1,0 +1,25 @@
+#include <stdio.h>
+#include <iostream>
+
+int main()
+{
+if(hello == 1)
+    {
+    if(goodbye == 0)
+        {
+
+        }
+    
+    }
+while(true)
+    {
+
+    }
+
+for (count = 0; count < 11; count++)
+    {
+
+    }
+
+return 0;
+}

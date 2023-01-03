@@ -1,0 +1,28 @@
+if(hello == 1)
+    {
+    if(goodbye == 0)
+        {
+        if(bob == 0)
+            {
+            if(pam == 1)
+                {
+
+                }
+
+            if(pim == 2)
+                {
+
+                }
+
+                {
+                    
+                }
+
+            }
+        }
+    }
+    
+if(jimmy == 1)
+    {
+
+    }

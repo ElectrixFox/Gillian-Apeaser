@@ -1,0 +1,13 @@
+Functions: function, Fractions, main, gettime, arufah, obselete
+
+int function();
+
+char Fractions();
+
+void main();
+
+int gettime();
+
+int arufah();
+
+void obselete();

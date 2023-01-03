@@ -1,0 +1,12 @@
+
+int function();
+
+char Fractions();
+
+void main();
+
+int gettime();
+
+int arufah();
+
+void obselete();

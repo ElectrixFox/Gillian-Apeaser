@@ -1,0 +1,63 @@
+find the statements
+- if
+- while
+- for
+- switch
+
+find their
+- find opening bracer {
+- find closing bracer }
+
+have a list of statements that have bracers
+link each open bracer to a close bracer and a tag for what it is (maybe a check digit)
+add the end tags onto the closing bracer
+
+find all functions
+add their definitions to the top of the program (commentary)
+
+check there are no variable declarations not at the top of each subroutine/function
+
+if:
+for i lines in file
+	are there any ifs in lines[i]
+	if so:
+		// has all of the functions open and close bracers and tags
+		add statement to a func cache 
+	if there is a close bracer:
+		check function cache for the corresponding end statement
+	if not:
+		increment i
+
+Data structure to help with identification
+statement tag
+statement location
+
+open bracer
+open bracer location
+
+have a stack for all the close bracers
+then pop off the stack adding the end statement corresponding to the queue of statement tags 
+
+int statmentlocs[32];
+
+// number of statements
+int count = 0;
+
+for (int i = 0; i < nolines; i++)
+	{
+	// could make this a function that just changes that "if" to any statement
+	if(strcmp(lines[i], "if") != -1)
+		{
+		statmentlocs[count++] = i;
+		}
+	}
+
+char appened[32];
+for(int i = 0; i < count; i++)
+	{
+	strcpy(append, lines[count]);
+	strcpy(append, " //endif");
+
+	WriteFile();
+	}
+

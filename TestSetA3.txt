@@ -1,0 +1,12 @@
+if(hello == 1)
+    {
+    if(goodbye == 0)
+        {
+
+        }
+    }
+    
+if(jimmy == 1)
+    {
+
+    }
